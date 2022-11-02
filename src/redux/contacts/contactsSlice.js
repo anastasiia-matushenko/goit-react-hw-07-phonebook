@@ -42,7 +42,7 @@ const contactsSlice = createSlice({
       contacts.error = null;
     },
     [addContact.fulfilled]({ contacts }, { payload }) {
-      contacts.items = [payload, ...contacts.items];
+      contacts.items = [...contacts.items, payload];
       contacts.isLoading = false;
       contacts.error = null;
     },

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,13 +9,13 @@ import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
 
 import { filterContacts } from 'redux/contacts/contactsSlice';
-import { selectContacts, selectFilter, selectIsLoading, selectVisibleContacts } from 'redux/contacts/contactsSelectors';
+import { selectContacts, selectError, selectFilter, selectIsLoading, selectVisibleContacts } from 'redux/contacts/contactsSelectors';
 import { addContact, fetchContacts } from 'redux/contacts/contactsOperatios';
-import { useEffect } from 'react';
 
 export const App = () => {
   const contacts = useSelector(selectContacts);
   const filterName = useSelector(selectFilter);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -55,6 +56,7 @@ export const App = () => {
           contacts={contactsFilterList}
         />
         : <Message>❌ Your query did not find anything</Message> : ""}
+      {error && <p>{error.message}</p>}
       <ToastContainer />
     </Container>
   );
